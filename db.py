@@ -1,11 +1,14 @@
 import psycopg2
+import os
+from dotenv import load_dotenv
 
-DB_HOST="localhost"
-DB_PORT=5432
-DB_NAME="chatscheduler_db"
-DB_USER="postgres"
-DB_PASSWORD="654321"
+load_dotenv()
 
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
 
 try:
     conn = psycopg2.connect(database=DB_NAME,
@@ -14,13 +17,9 @@ try:
                             host=DB_HOST,
                             port=DB_PORT)
     print("Database connected successfully")
-except:
-    print("Database not connected successfully")
-    
-    
-cur = conn.cursor()
+except Exception as e:
+    raise ConnectionError(f"Database connection failed: {e}") from e
+  
 
-cur.execute("""CREATE TABLE IF NOT EXISTS Employee(ID INT PRIMARY KEY NOT NULL,NAME TEXT NOT NULL,EMAIL TEXT NOT NULL)""")
-conn.commit()
-print("Table created successfully")
+    
 
