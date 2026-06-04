@@ -1,29 +1,26 @@
-import os
-import time
 import psycopg2
-from dotenv import load_dotenv
 
-load_dotenv()
+DB_HOST="localhost"
+DB_PORT=5432
+DB_NAME="chatscheduler_db"
+DB_USER="postgres"
+DB_PASSWORD="654321"
 
 
-def connect_db(retries=5, delay=3):
-    for attempt in range(retries):
-        try:
-            connection = psycopg2.connect(
-                host=os.getenv("DB_HOST"),
-                port=os.getenv("DB_PORT"),
-                dbname=os.getenv("DB_NAME"),
-                user=os.getenv("DB_USER"),
-                password=os.getenv("DB_PASSWORD"),
-            )
+try:
+    conn = psycopg2.connect(database=DB_NAME,
+                            user=DB_USER,
+                            password=DB_PASSWORD,
+                            host=DB_HOST,
+                            port=DB_PORT)
+    print("Database connected successfully")
+except:
+    print("Database not connected successfully")
+    
+    
+cur = conn.cursor()
 
-            print("Connected to PostgreSQL successfully")
-            return connection
+cur.execute("""CREATE TABLE IF NOT EXISTS Employee(ID INT PRIMARY KEY NOT NULL,NAME TEXT NOT NULL,EMAIL TEXT NOT NULL)""")
+conn.commit()
+print("Table created successfully")
 
-        except Exception as error:
-            print(f"Attempt {attempt + 1} failed: {error}")
-
-            if attempt < retries - 1:
-                time.sleep(delay)
-
-    raise Exception("Database connection failed")
