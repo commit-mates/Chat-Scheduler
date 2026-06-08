@@ -43,16 +43,13 @@ def create_tables():
         print("Tables created successfully")
 
     except Exception as e:
-
-        conn.rollback()
-
         raise Exception(f"Table creation failed: {e}") from e
 
     finally:
-
-        cursor.close()
-        conn.close()
-
+    
+        cursor.close() if cursor else None
+        
+        conn.close() if conn else None
         print("Database connection closed")
 
 

@@ -1,6 +1,8 @@
 --for Contacts Table
 
-CREATE TABLE IF NOT EXISTS contacts ( contact_id SERIAL PRIMARY KEY,name VARCHAR(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS contacts ( 
+    contact_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
     email VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -39,9 +41,7 @@ CREATE TABLE IF NOT EXISTS notification_logs (
 
 -- for  Scheduler Logs Table
 
-CREATE TABLE IF NOT EXISTS scheduler_logs (
-    log_id SERIAL PRIMARY KEY,
-    action VARCHAR(100),
+CREATE TABLE IF NOT EXISTS scheduler_logs (log_id SERIAL PRIMARY KEY,action VARCHAR(100),
     status VARCHAR(20),
     log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     details TEXT
