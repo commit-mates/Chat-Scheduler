@@ -36,7 +36,7 @@ def create_tables():
 
         conn.commit()
 
-        print("Acceptance Criteria: Tables created successfully")
+        print(" Tables created successfully")
 
     except Exception as e:
 
