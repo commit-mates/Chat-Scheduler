@@ -21,5 +21,39 @@ except Exception as e:
     raise ConnectionError(f"Database connection failed: {e}") from e
   
 
-    
 
+def create_tables():
+    
+    cursor = None
+
+    try:
+        cursor = conn.cursor()
+
+        with open("backend/sql/table_ddl.sql", "r") as file:
+            create_tables_sql = file.read()
+
+        cursor.execute(create_tables_sql)
+
+        conn.commit()
+
+        print("Acceptance Criteria: Tables created successfully")
+
+    except Exception as e:
+
+        conn.rollback()
+
+        raise Exception(f"Table creation failed: {e}")
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+        print("Database connection closed")
+
+
+if __name__ == "__main__":
+    create_tables()
