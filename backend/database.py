@@ -1,4 +1,6 @@
-import psycopg2
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
@@ -10,49 +12,10 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 
+URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
-def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            host=DB_HOST,
-            port=DB_PORT
-        )
+engine = create_engine(URL)
 
-        print("Database connected successfully")
-        return conn
+Base = declarative_base()
 
-    except Exception as e:
-        raise ConnectionError( f"Database connection failed: {e}") from e
-
-
-def create_tables():
-    try:
-        conn = get_db_connection()
-
-        cursor = conn.cursor()
-        with open("sql/table_ddl.sql", "r") as file:
-          create_tables_sql = file.read()
-
-        cursor.execute(create_tables_sql)
-
-        conn.commit()
-
-        print("Tables created successfully")
-
-    except Exception as e:
-        raise Exception(f"Table creation failed: {e}") from e
-
-    finally:
-    
-        cursor.close() if cursor else None
-        
-        conn.close() if conn else None
-        print("Database connection closed")
-
-
-if __name__ == "__main__":
-    create_tables()
-    
+SessionLocal = sessionmaker(autoflush=False, autocommit = False, bind = engine)
