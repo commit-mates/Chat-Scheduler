@@ -7,12 +7,13 @@ from models.scheduler import NotificationLog, SchedulerLog
 
 Base.metadata.create_all(bind=engine)
 
-name = input("Enter Name: ")
-phone = input("Enter Phone Number: ")
-email = input("Enter Email: ")
+# name = input("Enter Name: ")
+# phone = input("Enter Phone Number: ")
+# email = input("Enter Email: ")
 
 
-Contact.add_contact(name, phone, email)
-Contact.update_contact(contact_id,name,phone,email)
+#Contact.add_contact(name, phone, email)
+contact_id = int(input("Enter Contact Id:"))
+Contact.update_contact(contact_id)
 
 
