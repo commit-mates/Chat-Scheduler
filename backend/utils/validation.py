@@ -17,8 +17,7 @@ def validate_contact(name,phone_number,email):
 
     if not email:
         raise ValueError("Email cannot be empty")
-        
-            
+         
 
     if "@" not in email or "." not in email:
         raise ValueError("Invalid email address")
