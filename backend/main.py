@@ -32,21 +32,15 @@ while True:
         Contact.add_contact(name, phone, email)
 
     elif choice == 2:
-
-        contact_id = int(input("Enter Contact ID: "))
-        Contact.update_contact(contact_id)
-
+         Contact.update_contact()
+         
     elif choice == 3:
-
-        contact_id = int(input("Enter Contact ID: "))
-        Contact.delete_contact(contact_id)
+        Contact.delete_contact()
 
     elif choice == 4:
-
         Contact.display_contact()
 
     elif choice == 5:
-
         print("Thank you!")
         break
 
