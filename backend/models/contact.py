@@ -6,7 +6,6 @@ from database import SessionLocal
 
 class Contact(Base):
     __tablename__ = "contacts"
-
     contact_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     phone_number = Column(String, nullable=False)
@@ -16,7 +15,10 @@ class Contact(Base):
     
     #ADD CONTACT
     @classmethod
-    def add_contact(cls, name, phone_number, email):
+    def add_contact(cls):
+            name = input("Enter Name: ")
+            phone_number = input("Enter Phone Number: ")
+            email = input("Enter Email: ")
             db = SessionLocal()
 
             try:

@@ -3,9 +3,7 @@ from  utils.validation import validate_contact
 from database import Base ,engine
 from models.message import ScheduledMessage
 from models.scheduler import NotificationLog, SchedulerLog
-from database import Base, engine
 
-Base.metadata.create_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
 while True:
@@ -18,10 +16,7 @@ while True:
     choice = int(input("Enter your choice: "))
 
     if choice == 1:
-        name = input("Enter Name: ")
-        phone = input("Enter Phone Number: ")
-        email = input("Enter Email: ")
-        Contact.add_contact(name, phone, email)
+        Contact.add_contact()
     elif choice == 2:
          Contact.update_contact()       
     elif choice == 3:
