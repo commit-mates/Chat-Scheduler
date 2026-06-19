@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from database import Base
-from  utils.validation import validate_contact
+from utils.validation import validate_contact
 from database import SessionLocal
 
 class Contact(Base):
@@ -16,9 +16,9 @@ class Contact(Base):
     #ADD CONTACT
     @classmethod
     def add_contact(cls):
-            name = input("Enter Name: ")
+            name = input("Enter Name: ").strip()
             phone_number = input("Enter Phone Number: ")
-            email = input("Enter Email: ")
+            email = input("Enter Email: ").strip()
             db = SessionLocal()
 
             try:
@@ -111,6 +111,7 @@ class Contact(Base):
 
         finally:
             db.close()
+   
    
    #DISPLAY CONTACT
     @classmethod
@@ -226,7 +227,7 @@ class Contact(Base):
                 ).first()
 
             elif choice == 3:
-                email = input("Enter Email: ")
+                email = input("Enter Email: ").strip()
                 contact = db.query(cls).filter(
                     cls.email == email
                 ).first()
@@ -253,11 +254,11 @@ class Contact(Base):
             new_email = contact.email
             
             if update_choice == 1:
-                new_name = input("Enter New Name: ")
+                new_name = input("Enter New Name: ").strip()
             elif update_choice == 2:
                 new_phone = input("Enter New Phone: ")
             elif update_choice == 3:
-                new_email = input("Enter New Email: ")
+                new_email = input("Enter New Email: ").strip()
             else:
                 print("Invalid Choice!")
                 return
