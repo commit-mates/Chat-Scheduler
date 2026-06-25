@@ -20,12 +20,16 @@ class Contact(Base):
             phone_number = input("Enter Phone Number: ")
             email = input("Enter Email: ").strip()
             db = SessionLocal()
-
+            
             try:
-                validate_contact(name, phone_number, email)
+                if phone_number.startswith("+91"):
+                    number = (phone_number[3:].strip())
+                else:
+                    number =(phone_number)
+                validate_contact(name, number, email)
                 new_contact = cls(
                     name=name, 
-                    phone_number=phone_number,
+                    phone_number=number,
                     email=email
                 )
 
